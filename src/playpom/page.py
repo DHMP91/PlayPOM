@@ -40,7 +40,7 @@ class BasePage(PlaywrightPage):
 
         url = self.URL_BASE if self.URL_BASE else ""
         if self.URL_TEMPLATE:
-            url = f"{url}/{self.URL_TEMPLATE}"
+            url = f"{url.rstrip('/')}/{self.URL_TEMPLATE.lstrip('/')}"
         formatted_url = url.format(**self._url_kwargs)
         self._url = formatted_url
         return url
