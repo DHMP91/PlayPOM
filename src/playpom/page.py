@@ -43,7 +43,7 @@ class BasePage(PlaywrightPage):
             url = f"{url.rstrip('/')}/{self.URL_TEMPLATE.lstrip('/')}"
         formatted_url = url.format(**self._url_kwargs)
         self._url = formatted_url
-        return url
+        return self._url
 
     def loaded(self) -> bool:
         raise NotImplementedError("Please add a function loaded(self) -> bool to your Page Object Class")
