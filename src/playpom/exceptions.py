@@ -4,5 +4,5 @@ class PageLoadedException(Exception):
 class DefineHostAndPortException(Exception):
     pass
 
-class DefineURLTemplateException(Exception):
+class DefinePageClassURLException(Exception):
     pass

@@ -2,7 +2,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 from playwright.sync_api import Page
 
-from playpom.exceptions import DefineURLTemplateException
+from playpom.exceptions import DefinePageClassURLException
 from playpom.playwright_page import PlaywrightPage
 
 class BasePage(PlaywrightPage):
@@ -16,8 +16,10 @@ class BasePage(PlaywrightPage):
     def __init__(self, page: Page, timeout=30, **url_kwargs):
         page.set_default_timeout(timeout*1000)
         super(BasePage, self).__init__(page)
-        if not self.URL_TEMPLATE:
-            raise DefineURLTemplateException("Please define a class variable 'URL_TEMPLATE' in the page class")
+        if not self.URL_TEMPLATE and not self.URL_BASE:
+            raise DefinePageClassURLException(
+                "Please define a class variable 'URL_TEMPLATE' or 'URL_BASE' in the page class"
+            )
         self._url_kwargs = url_kwargs
 
         if "port" not in self._url_kwargs:
@@ -35,8 +37,12 @@ class BasePage(PlaywrightPage):
     def url(self):
         if self._url:
             return self._url
-        url = self.URL_TEMPLATE.format(**self._url_kwargs)
-        self._url = url
+
+        url = self.URL_BASE if self.URL_BASE else ""
+        if self.URL_TEMPLATE:
+            url = f"{url}/{self.URL_TEMPLATE}"
+        formatted_url = url.format(**self._url_kwargs)
+        self._url = formatted_url
         return url
 
     def loaded(self) -> bool:
