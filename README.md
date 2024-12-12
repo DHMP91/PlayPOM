@@ -68,8 +68,8 @@ Here is a region of the google page as an example, where the region is the searc
 class SearchRegion(BaseRegion):
     def __init__(self, page):
         super(SearchRegion, self).__init__(page)
-        self.root_locator = page.get_by_role("search")
-        self.input_search_field = self.in_region.get_by_title("Search")
+        self.root_locator = page.get_by_role("search") # Define region's root locator
+        self.input_search_field = self.in_region.get_by_title("Search") # Finding element by title under root locator
         self.google_search_buttons = self.in_region.get_by_label("Google Search")
         self.im_feeling_lucky_buttons = self.in_region.get_by_label("I'm Feeling Lucky")
 
