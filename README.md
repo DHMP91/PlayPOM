@@ -41,8 +41,8 @@ Now each time you want to start a github page, you no longer need to pass in the
 This also makes it easier to change if the domain of the page changes in the future.
 
 
-How about sub pages? You can create a partial URL and extend the main page
-Here is an example of a user github page with the `USER_ID` passed in during instantiation:
+How about sub pages? You can create a partial URL and extend the main page (GItHubPage).
+Here is an example of a user page inheriting from GitHub Page with the `USER_ID` passed in during instantiation:
 
 ```python
 class GitHubUserPage(GitHubPage): # See above example for GitHubPage class
